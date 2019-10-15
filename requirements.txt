@@ -1,2 +1,4 @@
 django==2.2.6
 requests==2.22
+beautifulsoup4==4.8.1
+html5lib==1.0.1
