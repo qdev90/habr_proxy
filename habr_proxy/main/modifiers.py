@@ -34,19 +34,15 @@ class URLModifier(BaseModifier):
         link_pattern = r'^{}(.*)'.format(settings.TARGET_SITE)
 
         for tag in soup.find_all('a', href=re.compile(link_pattern)):
-            tag['href'] = re.sub(
-                link_pattern,
-                r'{}\1'.format(host_url),
-                tag['href']
-            )
+            tag['href'] = re.sub(link_pattern,
+                                 r'{}\1'.format(host_url),
+                                 tag['href'])
 
         # tags 'use' have specific attribute 'xlink:href'
         for tag in soup.find_all('use'):
-            tag['xlink:href'] = re.sub(
-                link_pattern,
-                r'{}\1'.format(host_url),
-                tag['xlink:href']
-            )
+            tag['xlink:href'] = re.sub(link_pattern,
+                                       r'{}\1'.format(host_url),
+                                       tag['xlink:href'])
 
         return str(soup)
 
@@ -71,12 +67,7 @@ class SixLettersWordsModifier(BaseModifier):
             for content in tag.contents:
                 if isinstance(content, NavigableString):
                     new_content = NavigableString(
-                        re.sub(
-                            pattern,
-                            r'\1™',
-                            content
-                        )
-                    )
+                        re.sub(pattern, r'\1™', content))
                     content.replace_with(new_content)
 
         return str(soup)
